@@ -7,24 +7,6 @@ let {
 const {getLogger} = require('../../core/logging');
 const logger = getLogger();
 
-// let mockdeck = [{
-//     id: '3291ad9c-7c5c-44c8-b8d9-ac16144032ef',
-//     name: 'Varina',
-//     commander: 'Varina, Lich Queen',
-//     user: 'Gigi',
-//     cards: [
-//         'Varina, Lich Queen',
-//         'Anguished Unmaking',
-//         'Snow-Covered Swamp',
-//         'Snow-Covered Swamp',
-//         'Snow-Covered Swamp',
-//         'Snow-Covered Swamp',
-//         'Snow-Covered Swamp',
-//     ],
-//     dateCreated: '2021-05-21T12:30:00.000Z',
-//     dateUpdated: '2021-05-21T12:30:00.000Z',
-// }]
-
 
 const getAll = () => {
     return {
@@ -56,7 +38,6 @@ const create = ({name,commander,user,userId,cards,dateCreated
                 cards,
                 dateCreated: dateCreated,
                 dateUpdated: null
-                //dateUpdated: date.toISOString(),
             };
             DECKS = [...DECKS, newDeck];
             return newDeck;
@@ -79,19 +60,12 @@ const create = ({name,commander,user,userId,cards,dateCreated
                 cards,
                 dateCreated: dateCreated,
                 dateUpdated: null
-                //dateUpdated: date.toISOString(),
             };
             DECKS = [...DECKS, newDeck];
             return newDeck;
         }
     }
     }
-    // if (typeof user === 'string') {
-    //     user = {
-    //         id: uuid.v4(),
-    //         name: name
-    //     };
-    // }
 
     
 
