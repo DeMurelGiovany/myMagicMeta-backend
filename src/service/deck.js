@@ -67,7 +67,6 @@ const create = ({name,commander,user,userId,cards,dateCreated
     }
     }
 
-    
 
 }
 
