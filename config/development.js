@@ -9,10 +9,18 @@ module.exports = {
     },
     database: {
 		client: 'mysql2',
-		host: 'localhost',
+		host: 'ID365840_mymagicmeta.db.webhosting.be',
 		port: 3306,
-		name: 'budget',
-		username: 'root',
-		password: '',
+		name: 'ID365840_mymagicmeta',
+		username: 'ID365840_mymagicmeta',
+		password: 'magic2021',
 	},
 }
+
+// Hostname:
+// ID365840_mymagicmeta.db.webhosting.be
+// Database:
+// ID365840_mymagicmeta
+// Gebruiker:
+// ID365840_mymagicmeta
+// Password: magic2021

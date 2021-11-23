@@ -6,14 +6,15 @@ const {
 } = require('../core/logging');
 const bodyParser = require('koa-bodyparser');
 const koaCors = require('@koa/router');
-const {
-    initializeData
-} = require('./data')
+// const {
+//     initializeData
+// } = require('./data')
 
+const mysql = require('mysql2/promise');
 
 const NODE_ENV = config.get('env');
-const CORSE_ORIGINS = config.get('cors.origins');
-const CORS_MAX_AGE = config.get('cors.naxAge');
+const CORS_ORIGINS = config.get('cors.origins');
+const CORS_MAX_AGE = config.get('cors.maxAge');
 const LOG_LEVEL = config.get('log.level');
 const LOG_DISABLED = config.get('log.disabled');
 const deckService = require('./service/deck');
@@ -25,7 +26,18 @@ const deckService = require('./service/deck');
 async function main() {
     console.log(`log level ${LOG_LEVEL}, logs enabled: ${LOG_DISABLED !== true}`)
 
-
+    //msql2
+    const pool = await mysql.createPool({
+        host: 'ID365840_mymagicmeta.db.webhosting.be',
+		port: 3306,
+		database: 'ID365840_mymagicmeta',
+		user: 'ID365840_mymagicmeta',
+		password: 'magic2021',
+        connectionLimit: 10,
+    });
+    //const [insert] = await pool.query('insert into users (name) values ("Miko")');
+    const [result] = await pool.query('SELECT * from users;');
+    console.log(result);
     const logger = getLogger();
 
     await initializeData();
@@ -35,11 +47,11 @@ async function main() {
     app.use(
         koaCors({
             origin: (ctx) => {
-                if (CORSE_ORIGINS.indexOf(ctx.request.header.origin) !== -1) {
+                if (CORS_ORIGINS.indexOf(ctx.request.header.origin) !== -1) {
                     return ctx.request.header.origin;
                 }
                 //not valid from  here
-                return CORSE_ORIGINS[0];
+                return CORS_ORIGINS[0];
             },
             allowHeaders: ['Accept', 'Content-type', 'Authorization'],
             maxAge: CORS_MAX_AGE,
