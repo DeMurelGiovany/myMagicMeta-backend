@@ -1,16 +1,15 @@
+const Knex = require('knex');
 const koa = require('koa');
 const Router = require('@koa/router');
 const config = require('config');
-const {
-    getLogger
-} = require('../core/logging');
+const {getLogger} = require('../core/logging');
 const bodyParser = require('koa-bodyparser');
 const koaCors = require('@koa/router');
 // const {
 //     initializeData
 // } = require('./data')
 
-const mysql = require('mysql2/promise');
+//const mysql = require('mysql2/promise');
 
 const NODE_ENV = config.get('env');
 const CORS_ORIGINS = config.get('cors.origins');
@@ -25,22 +24,48 @@ const deckService = require('./service/deck');
 
 async function main() {
     console.log(`log level ${LOG_LEVEL}, logs enabled: ${LOG_DISABLED !== true}`)
+    //knex
+    const knex = Knex({
+        client: 'mysql2',
+        connection: {
+            host: 'ID365840_mymagicmeta.db.webhosting.be',
+            port: 3306,
+            user: 'ID365840_mymagicmeta',
+            password: 'magic2021',
+            database: 'ID365840_mymagicmeta'
+        }, debug: true
+    });
+
+    const [users] = await knex.raw('SELECT * FROM users')
+    console.table(users)
+
+    // const insertUser = await knex('users').insert({
+    //         name: 'Miko'
+    //     });
+    // console.log(insertUser)
+
+    await knex.destroy();
+
+    
+
+    
 
     //msql2
-    const pool = await mysql.createPool({
-        host: 'ID365840_mymagicmeta.db.webhosting.be',
-		port: 3306,
-		database: 'ID365840_mymagicmeta',
-		user: 'ID365840_mymagicmeta',
-		password: 'magic2021',
-        connectionLimit: 10,
-    });
+    // const pool = await mysql.createPool({
+    //     host: 'ID365840_mymagicmeta.db.webhosting.be',
+	// 	port: 3306,
+	// 	database: 'ID365840_mymagicmeta',
+	// 	user: 'ID365840_mymagicmeta',
+	// 	password: 'magic2021',
+    //     connectionLimit: 10,
+    // });
     //const [insert] = await pool.query('insert into users (name) values ("Miko")');
-    const [result] = await pool.query('SELECT * from users;');
-    console.log(result);
+    // const [result] = await pool.query('SELECT * from users;');
+    // console.log(result);
+
     const logger = getLogger();
 
-    await initializeData();
+    // await initializeData();
 
     const app = new koa();
 
