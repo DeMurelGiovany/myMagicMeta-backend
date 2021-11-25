@@ -2,7 +2,7 @@ const config = require('config');
 const knex = require('knex');
 
 const NODE_ENV = config.get('env');
-// const isDevelopment = NODE_ENV === 'development';
+const isDevelopment = NODE_ENV === 'development';
 
 // const DATABASE_CLIENT = config.get('database.client');
 // const DATABASE_NAME = config.get('database.name');
@@ -48,7 +48,7 @@ let knexInstance;
 	}
 
     return knexInstance;
-};
+
 
 function getKnex(){
     if (!knexInstance) throw new Error('Please initialize the data layer before getting the knex instance');
