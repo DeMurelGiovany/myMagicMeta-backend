@@ -24,7 +24,7 @@ const deckService = require('./service/deck');
 
 async function main() {
     console.log(`log level ${LOG_LEVEL}, logs enabled: ${LOG_DISABLED !== true}`)
-    //knex
+ 
     const knex = Knex({
         client: 'mysql2',
         connection: {
@@ -50,18 +50,6 @@ async function main() {
 
     
 
-    //msql2
-    // const pool = await mysql.createPool({
-    //     host: 'ID365840_mymagicmeta.db.webhosting.be',
-	// 	port: 3306,
-	// 	database: 'ID365840_mymagicmeta',
-	// 	user: 'ID365840_mymagicmeta',
-	// 	password: 'magic2021',
-    //     connectionLimit: 10,
-    // });
-    //const [insert] = await pool.query('insert into users (name) values ("Miko")');
-    // const [result] = await pool.query('SELECT * from users;');
-    // console.log(result);
 
     const logger = getLogger();
 
@@ -69,6 +57,7 @@ async function main() {
 
     const app = new koa();
 
+    try{
     app.use(
         koaCors({
             origin: (ctx) => {
@@ -82,6 +71,10 @@ async function main() {
             maxAge: CORS_MAX_AGE,
         })
     );
+    }
+    catch{
+        console.log("(cors unhandled promise rejection)")
+    }
 
     app.use(bodyParser());
 

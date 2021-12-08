@@ -1,4 +1,8 @@
+const decksRepository = require('../repository/deck');
 const uuid = require('uuid');
+
+
+
 let {
     DECKS,
     USERS
@@ -7,13 +11,19 @@ let {
 const {getLogger} = require('../../core/logging');
 const logger = getLogger();
 
-
-const getAll = () => {
-    return {
-        data: DECKS,
-        count: DECKS.length
-    };
-}
+const getAll = async (
+    limit = 100,
+    offset = 0,
+) => {
+    const data = await decksRepository.findAll({limit, offset});
+    return{ data, limit, offset};
+};
+// const getAll = () => {
+//     return {
+//         data: DECKS,
+//         count: DECKS.length
+//     };
+// }
 
 const getById = (id) => {
     return DECKS.filter((deck) => deck.id === id)[0];
