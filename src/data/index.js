@@ -15,20 +15,24 @@ let knexInstance;
 
 async function initializeDAta(){
     const knexOptions = {
-		client: DATABASE_CLIENT,
-		connection: {
-			host: DATABASE_HOST,
-			port: DATABASE_PORT,
-			database: DATABASE_NAME,
-			user: DATABASE_USERNAME,
-			password: DATABASE_PASSWORD,
-			insecureAuth: isDevelopment,
-		},
-		migrations: {
-			tableName: 'knex_meta',
-			directory: join('src', 'data', 'migrations')
-		},
-    }
+			client: DATABASE_CLIENT,
+			connection: {
+				host: DATABASE_HOST,
+				port: DATABASE_PORT,
+				database: DATABASE_NAME,
+				user: DATABASE_USERNAME,
+				password: DATABASE_PASSWORD,
+				insecureAuth: isDevelopment,
+			},
+			migrations: {
+				tableName: 'knex_meta',
+				directory: join('src', 'data', 'migrations')
+			},
+			seeds: {
+				directory: join('src', 'data', 'seeds')
+			},
+
+  }
 
     
 knexInstance = knex(knexOptions);
@@ -64,6 +68,16 @@ knexInstance = knex(knexOptions);
     }
 		throw new Error('Migrations failed');
   }
+
+	if (isDevelopment) {
+		try {
+			await knexInstance.seed.run();
+		} catch (error) {
+			logger.error('Error while seeding database', {
+				error,
+			});
+		}
+	}
 
     return knexInstance;
 };

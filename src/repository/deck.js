@@ -1,6 +1,8 @@
 const {tables, getKnex} = require('../data/index');
 const uuid = require('uuid');
 
+
+
 const create = async ({id, name, commander, userid, gamesplayed, gameswon, datecreated, dateupdated}) => {
   try{
     const id = uuid.v4();

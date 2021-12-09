@@ -1,6 +1,7 @@
+const {tables} = require('..'); // verwijst naar data folder, neemt automatisch index.js
 module.exports = {
   up: async (knex) => {
-    await knex.schema.createTable('decks', (table) => {
+    await knex.schema.createTable(tables.deck, (table) => {
       table.uuid('id')
         .primary();
       
@@ -11,6 +12,6 @@ module.exports = {
     });
   },
   down:  (knex) => {
-    return knex.schema.dropTableIfExists('decks')
+    return knex.schema.dropTableIfExists(tables.deck)
   },
 };

@@ -8,7 +8,7 @@ let {
     USERS
 } = require('../data/mock_data');
 
-const {getLogger} = require('../../core/logging');
+const {getLogger} = require('../core/logging');
 const logger = getLogger();
 
 const getAll = async (

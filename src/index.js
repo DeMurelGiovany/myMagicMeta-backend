@@ -2,12 +2,10 @@ const Knex = require('knex');
 const koa = require('koa');
 const Router = require('@koa/router');
 const config = require('config');
-const {getLogger} = require('../core/logging');
+const {getLogger} = require('./core/logging');
 const bodyParser = require('koa-bodyparser');
 const koaCors = require('@koa/router');
-// const {
-//     initializeData
-// } = require('./data')
+const {initializeData} = require('./data')
 
 //const mysql = require('mysql2/promise');
 
